@@ -58,3 +58,9 @@
     transform: scale(1.05);
 }
 
+.buttons-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
