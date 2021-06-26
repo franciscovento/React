@@ -1,23 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 
-const Button = () => {
-
- const aleatorioButton = () =>{
-    const limite = 102;
-    return Math.floor(Math.random()*limite)
-  };   
-
-let [state, setState] = useState(1);
-
-const setearEstado = () => {
-    setState(state = aleatorioButton())
-}
+const Button = (props) => {
 
     return (
         <div>
-            <button onClick={setearEstado} > Otra frase {state} </button>
-            {console.log(state)}
+            <button className= "next-phrase" onClick={props.onClick} style={props.background} > {props.title} </button>
         </div>      
     )
 }

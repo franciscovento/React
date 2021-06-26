@@ -1,32 +1,14 @@
-import React, { useState } from 'react'
-import Data from '../quotes.json'
+import React from 'react'
 
-const Quotes = () => {
-    
-    const aleatorioButton = () =>{
-        const limite = 102;
-        return Math.floor(Math.random()*limite)
-      };   
-    
-    let [state, setState] = useState(Math.floor(Math.random()*102));
-    
-    const setearEstado = () => {
-        setState(state = aleatorioButton())
-    
-    }
-    
-    const author = Data.quotes[state]["author"];
-    const phrase = Data.quotes[state]["quote"];
+const Quotes = (props) => {
 
-
+    
     return (
         <div>
-            <p className="phrase">{phrase}</p>
-            <p className="author">{author}</p>
-            <button onClick={setearEstado} > Otra frase {state} </button>
+            <p className="phrase">{props.phrase}</p>
+            <p className="author">{props.author}</p>
         </div>
     )
-
 }
 
 export default Quotes

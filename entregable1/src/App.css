@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&family=Open+Sans&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+}
+
+
+.App{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    transition: all 0.5s;
+}
+
+.Container{
+    display: flex;
+    width: 600px;
+    min-height: 300px;
+    background-color: rgb(250, 247, 241);
+    flex-direction: column;
+    align-items:flex-end;
+    justify-content: space-around;
+    padding: 50px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.phrase{
+    font-size: 2.5em;
+}
+
+.author{
+    text-align: end;
+    font-size: 2em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.author::before{
+    content: "- ";
+}
+
+.next-phrase{
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.5em;
+    font-family: 'Open Sans', sans-serif;
+    background-color:#008793 ;
+    color: white;
+    border: 0px;
+    transition: all 0.5s;
+}
+
+.next-phrase:hover{
+    transform: scale(1.05);
+}
+
