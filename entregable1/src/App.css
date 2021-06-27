@@ -37,6 +37,7 @@
     text-align: end;
     font-size: 2em;
     font-family: 'Open Sans', sans-serif;
+    padding-top: 20px;
 }
 
 .author::before{
@@ -62,5 +63,12 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
 
+@media screen and (max-width: 500px) {
+    .buttons-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

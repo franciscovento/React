@@ -3,8 +3,8 @@ import Quotes from './components/Quotes';
 import Button from './components/Button';
 import { useState } from 'react'
 import Data from './quotes.json'
-
-
+import {faTwitter} from '@fortawesome/free-brands-svg-icons'
+import {faCaretRight} from '@fortawesome/free-solid-svg-icons'
 
 
 function App() {
@@ -32,10 +32,10 @@ const color = {
   1: "#FF9671",
   2: "#FFC75F",
   3: "#FF6F91",
-  4:"#0089BA",
+  4: "#0089BA",
   5: "#2C73D2",
   6: "#FF8066",
-  7:"#00C9F8",
+  7: "#00C9F8",
   8: "#68EDCB",
   9: "#FFD489"
 }
@@ -61,13 +61,17 @@ function shareOnTwitter() {
           onClick = {() => shareOnTwitter()}
           title = "Share on Twitter"
           background = {{background: color[ale]}}
+          icon = {faTwitter}
         /> 
 
         <Button 
           onClick = {setearEstado}
           title = "New Quote"
           background = {{background: color[ale]}}
+          icon = {faCaretRight}
         /> 
+
+        
         </div>
       </div> 
     </div>
