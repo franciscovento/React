@@ -9,16 +9,15 @@ import {faCaretRight} from '@fortawesome/free-solid-svg-icons'
 
 function App() {
 
-  const aleatorioButton = (x) =>{
+  const randomNumber = (x) =>{
     const limit = x;
     return Math.floor(Math.random()*limit)
   };   
 
 const [state, setState] = useState(Math.floor(Math.random()*102));
 
-
 const setearEstado = () => {
-    const num = aleatorioButton(102)
+    const num = randomNumber(102)
     setState(num)
 }
 
@@ -40,15 +39,14 @@ const color = {
   9: "#FFD489"
 }
 
-const ale = aleatorioButton(10); 
+const ale = randomNumber(10); 
 
 function shareOnTwitter() {
   let url = "https://twitter.com/intent/tweet?text=" + phrase + " - "+ author;
   window.open(url, '_blank').focus();
  }
 
- 
-                                     
+                                
   return (
     <div className="App" style={{background: color[ale]}} >
       <div className="Container">
@@ -70,8 +68,6 @@ function shareOnTwitter() {
           background = {{background: color[ale]}}
           icon = {faCaretRight}
         /> 
-
-        
         </div>
       </div> 
     </div>

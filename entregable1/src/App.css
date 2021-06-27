@@ -71,4 +71,12 @@
         justify-content: center;
         align-items: center;
     }
+
+    .buttons-container div:first-child{
+        order: 1;
+    }
+    .buttons-container div:last-child{
+        order: 0;
+    }
 }
+
