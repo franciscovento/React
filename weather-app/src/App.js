@@ -22,7 +22,7 @@ const [videoBackground, setVideoBackground] = useState(DayVideo);
 useEffect(() => {
 if (latitude !== null && longitude !== null) {
   let apiKey = "ada4f8d047a9437b9dd11847210207"
-  let url = "http://api.weatherapi.com/v1/current.json?key="+apiKey+"&q="+ latitude + ","+ longitude + "&aqi=no"
+  let url = "https://api.weatherapi.com/v1/current.json?key="+apiKey+"&q="+ latitude + ","+ longitude + "&aqi=no"
   const getData = async () =>{
     const response = await fetch(url).then(res => res.json())
     let arrayData = [response.location.country, response.location.name, response.location.region, response.location.localtime, response.current.condition.text, response.current.humidity, response.current.temp_c, response.current.temp_f, response.current.cloud, response.current.condition.icon, response.current.wind_kph, response.current.is_day ]
