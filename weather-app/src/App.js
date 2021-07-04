@@ -7,7 +7,7 @@ import ItemWeather from './components/ItemWeather';
 import Button from './components/Button';
 import DayVideo from './components/video/background-weahterapp-day.mp4';
 import NigthVideo from './components/video/background-weahterapp-nigth.mp4'
-import ClockLoader from "react-spinners/ClockLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 
 function App() {
@@ -21,12 +21,13 @@ const [videoBackground, setVideoBackground] = useState(DayVideo);
 
 
 useEffect(() => {
-  setLoading(true)
-  setTimeout(()=>{
+  if (latitude == null && longitude == null) {
+    setLoading(true)
+  } else{
     setLoading(false)
-  }, 3000)
+  }
 
-}, [])
+}, [latitude, longitude])
 
 
 
@@ -62,7 +63,6 @@ const geo_error = () => {
 const country = data[0];
 const locationName = data[1];
 const city = data[2];
-const localtime = data[3];
 const conditionTime = data[4];
 const humidity = data[5];
 const tempC = data[6];
@@ -105,20 +105,7 @@ useEffect(() => {
 
   return (
     <div className="App" >
-      
-      { loading ?
-        <ClockLoader 
-        color={"#0073db"} 
-        loading={loading} 
-        size={150} />
-
-        :
-
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
+     
       <video autoPlay loop muted
       style = {{
         position: "absolute",
@@ -130,21 +117,26 @@ useEffect(() => {
       >
         <source src = {videoBackground} type="video/mp4" />
       </video>
-      
-    <p className="time">{localtime}</p>
-     <div className="container">
-      <Title title = "ClimApp"  src={iconTime} />
-      <Ubication country = {country} city= {city} locationName = {locationName} />
-      <div className="items-content">
-      <ItemWeather title="Humedad" content={humidity} text="%" />
-      <ItemWeather title="Nubes" content={cloud} text="%" />
-      <ItemWeather title="Viento" content={windKph} text=" Kph" />
+      <div className="container">
+      { loading?
+        <PuffLoader 
+        color={"#0073db"} 
+        loading={loading} 
+        size={75} />
+        :
+      <div>
+        <Title title = "ClimApp"  src={iconTime} />
+        <Ubication country = {country} city= {city} locationName = {locationName} />
+        <div className="items-content">
+        <ItemWeather title="Humedad" content={humidity} text="%" />
+        <ItemWeather title="Nubes" content={cloud} text="%" />
+        <ItemWeather title="Viento" content={windKph} text=" Kph" />
+        </div>
+        <Temperature content={temperature} simbol={simbol} condition={conditionTime}/>
+        <Button content= "Celcius / Farenheit" onClick = {buttonDegrees} />
       </div>
-      <Temperature content={temperature} simbol={simbol} condition={conditionTime}/>
-      <Button content= "Celcius / Farenheit" onClick = {buttonDegrees} />
+    }
      </div>
-     </div>    
-      }
     </div>
   );
 }
