@@ -1,23 +1,32 @@
-import { useState } from 'react'
-import logo from './logo.svg';
-import './App.css';
-import Bulb from "./components/Bulb"
-import Input from './components/Input';
+import './App.css'
+import { useEffect, useState } from 'react'
+import searchGif from './services/searchGif'
+import Gif from './components/Gif'
+import Search from './components/Search'
 
-function App() {
-  const [counter, setCounter] = useState(0);
+function App () {
+  const [currentGif, setCurrentGif] = useState({
+    images: {
+      original: {
+        url: ''
+      }
+    }
+  })
+  const [queryTerm, setQueryTerm] = useState('puppies')
+  useEffect(() => {
+    searchGif(queryTerm).then(data => {
+      setCurrentGif(data.data[0])
+    })
+  }, [queryTerm])
 
   return (
-    <div className="App">
-      <header className="App-header">
-       <h5>{ counter }</h5>
-       <button type= "button" onClick ={() => {setCounter(counter + 1); console.log(counter);}} > Uno más  </button>
-       <button type= "button" onClick ={() => setCounter(counter - 1)} > Uno menos  </button>
-       <Bulb />
-       <Input />
+    <div className='App'>
+      <header className='App-header'>
+        <Search changeQuery={setQueryTerm} />
+        <Gif url={currentGif.images.original.url} />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
