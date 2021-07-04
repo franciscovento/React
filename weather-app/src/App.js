@@ -7,15 +7,26 @@ import ItemWeather from './components/ItemWeather';
 import Button from './components/Button';
 import DayVideo from './components/video/background-weahterapp-day.mp4';
 import NigthVideo from './components/video/background-weahterapp-nigth.mp4'
+import ClockLoader from "react-spinners/ClockLoader";
 
 
 function App() {
 
+const [loading, setLoading] = useState(false);
 const [latitude, getCurrentLatitude] = useState(null);
 const [longitude, getCurrenLongitude] = useState(null);
 const [data, setData] = useState([]);
 const [typeDegrees, setTypeDegrees] = useState(true);
 const [videoBackground, setVideoBackground] = useState(DayVideo);
+
+
+useEffect(() => {
+  setLoading(true)
+  setTimeout(()=>{
+    setLoading(false)
+  }, 3000)
+
+}, [])
 
 
 
@@ -30,6 +41,8 @@ if (latitude !== null && longitude !== null) {
   }
   getData();
 }
+
+
 },[latitude, longitude])
 
 
@@ -75,19 +88,37 @@ if (typeDegrees) {
   simbol = "°F"
 }
 
+
+
 useEffect(() => {
   if (isDay === 1) {
    setVideoBackground(DayVideo)
+  
   }else{
    setVideoBackground(NigthVideo)
+ 
   }
- }, [isDay])
+
+ },[isDay])
 
 
 
   return (
     <div className="App" >
       
+      { loading ?
+        <ClockLoader 
+        color={"#0073db"} 
+        loading={loading} 
+        size={150} />
+
+        :
+
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
       <video autoPlay loop muted
       style = {{
         position: "absolute",
@@ -107,11 +138,13 @@ useEffect(() => {
       <div className="items-content">
       <ItemWeather title="Humedad" content={humidity} text="%" />
       <ItemWeather title="Nubes" content={cloud} text="%" />
-      <ItemWeather title="Viento" content={windKph} text="Kph" />
+      <ItemWeather title="Viento" content={windKph} text=" Kph" />
       </div>
       <Temperature content={temperature} simbol={simbol} condition={conditionTime}/>
       <Button content= "Celcius / Farenheit" onClick = {buttonDegrees} />
      </div>
+     </div>    
+      }
     </div>
   );
 }
