@@ -134,7 +134,7 @@ useEffect(() => {
         </div>
         <Temperature content={temperature} simbol={simbol} condition={conditionTime}/>
         <Button content= "Celcius / Farenheit" onClick = {buttonDegrees} />
-      </div>
+        </div>
     }
      </div>
     </div>
