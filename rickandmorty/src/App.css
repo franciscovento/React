@@ -39,6 +39,10 @@
 .ResidentsContainer{
     flex-grow: 1;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .contentContainer{
@@ -55,6 +59,17 @@
 .SearchBox input {
     min-width: 300px;
     padding: 10px;
+
+}
+
+@media screen and (max-width: 400px) {
+    
+.SearchBox input {
+    min-width: 200px;
+    padding: 10px;
+
+}
+    
 }
 
 .SearchBox button {
