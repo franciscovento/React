@@ -60,3 +60,12 @@
 .SearchBox button {
     padding: 10px;
 }
+
+.infoWorlds{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import InformationWorld from './components/InformationWorld';
 import ResidentsContainer from './components/ResidentsContainer';
 import SearchBox from './components/SearchBox';
 import { getResidentsInfo } from './services/getResidentInfo';
@@ -12,6 +13,7 @@ function App() {
   const [caracterIds, getCaracterIds] = useState([])
   const [caracterInfo, setCaracterInfo] = useState([])
   const [info, setInfo] = useState([])
+  const [infoWorld, setInfoWorld] = useState(["Dimension C-137", "Earth (C-137)", "Planet"])
   
 
 useEffect(() => {
@@ -23,8 +25,6 @@ if (caracterInfo !== [] && caracterInfo.length <= 10) {
 },[caracterInfo])
 
 
-
-
   useEffect(() => {
 
     if (locationTerm) {
@@ -32,6 +32,8 @@ if (caracterInfo !== [] && caracterInfo.length <= 10) {
         const resp = await getResidentsLocation(locationTerm)
         if (resp.results !== undefined) {
           setData(resp.results[0].residents)
+          let arrayInfo = [resp.results[0].dimension, resp.results[0].name, resp.results[0].type]
+         setInfoWorld(arrayInfo)
         }else{
           setData(null)
         }
@@ -88,6 +90,7 @@ if (caracterInfo !== [] && caracterInfo.length <= 10) {
         <h1 style={{textAlign: 'center' , color: 'white', backgroundColor: 'black', padding: '5px' , marginTop: '10px'}}>Lo sentimos, ese planeta no existe... por ahora...</h1>
       }
       </header>
+      <InformationWorld dimension={infoWorld[0]} name={infoWorld[1]} type={infoWorld[2]} />
       <div className='containerCards'>
       {info}
       </div>
