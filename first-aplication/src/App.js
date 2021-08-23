@@ -1,58 +1,94 @@
 import './App.css'
 import { useForm } from 'react-hook-form'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 function App () {
- const { handleSubmit, register } = useForm()
+  const { register, handleSubmit } = useForm()
+  const [postData, setPostData] = useState(null)
+  const [selectOptions, setSelectOptions] = useState([])
+  const [quotesArray, getQuotesArray] = useState([])
 
-const callBack = (formValues) =>{
-  let arr = JSON.stringify(formValues)
-  alert(arr)  
-} 
 
-const callBackErrores = (errores) =>{
-  console.log(errores)
+useEffect(() => {
+const getQuotes = async () => {
+  const resp = await axios({
+    method: 'GET',
+    url: 'https://prof-quotes.herokuapp.com/api/quotes/'
+  })
+  getQuotesArray(resp.data.quotes)
+  console.log(resp.data.quotes)
 }
+getQuotes()
+
+},[])  
+
+useEffect(()=>{
+const getOptions = async () => {
+const resp = await axios({
+  method: 'GET',
+  url: 'https://prof-quotes.herokuapp.com/api/quotes/options',
+})
+setSelectOptions(resp.data.classOptions)
+}
+getOptions()
+},[])
+
+
+  useEffect(() => {
+    const miFunc = async () => {
+      const respuesta = await axios({
+        method: 'POST',
+        url: 'https://prof-quotes.herokuapp.com/api/quotes/',
+        data: postData
+      })
+    }
+
+    if (postData) {
+      miFunc()
+    }
+  }, [postData])
+
+  const onSubmit = values => {
+    setPostData(values)
+  }
+
+let opciones = selectOptions.map((e) => <option value={e}>{e}</option> )
+let citas = quotesArray.map((e) =><div>{e.quote}</div> )
+
   return (
     <div className='App'>
       <header className='App-header'>
-        <form onSubmit={handleSubmit(callBack, callBackErrores)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label style={{display: 'flex', flexDirection: 'column' }}>
-              Nombre 
-              <input type="text" { ...register('nombre') } />
+            <label>
+              Cita:
+              <input
+                {...register('quote', {
+                  required: true
+                })}
+              />
             </label>
           </div>
-          <div>
-            <label style={{display: 'flex', flexDirection: 'column' }}>
-              Apellido: 
-              <input type="text" { ...register('apellido', {required: true})} />
-            </label>
-          </div>
-          <div>
-            <label style={{display: 'flex', flexDirection: 'column' }}>
-              Edad: 
-              <input type="number" { ...register('edad', {required: true})} />
-            </label>
-          </div>
-          <div>
-            <label style={{display: 'flex', flexDirection: 'column' }}>
-              Correo: 
-              <input type="email" { ...register('email', {required: true})} />
-            </label>
-          </div>
-          <div>
-            <label style={{display: 'flex', flexDirection: 'column' }}>
-              Pais: 
-              <input type="text" { ...register('pais', {required: true})} />
-            </label>
-          </div>
-          <button type='submit'> Enviar </button>
 
+          <div>
+            <label>
+              Clase:
+              <select {...register('class', { required: true })}>
+              <option value=''>Selecciona la clase</option>
+              {opciones}
+              </select>
+            </label>
+          </div>
+
+          <button>Crear</button>
         </form>
-
-
-
       </header>
+
+
+      <div>
+        {citas}
+      </div>
     </div>
   )
 }
